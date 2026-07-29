@@ -1,0 +1,19 @@
+name: Output Event Details
+
+on:
+  issues:
+    types: [opened, edited, closed, reopened, deleted, labeled, unlabeled, assigned, unassigned]
+
+jobs:
+  output-event:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output event details
+        env:
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: |
+          echo "Issues Event Details:"
+          echo "$EVENT_CONTEXT"
+          echo "GitHub Context:"
+          echo "$GITHUB_CONTEXT"
